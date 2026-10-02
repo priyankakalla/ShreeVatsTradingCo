@@ -8,6 +8,12 @@
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     })[char]);
     const routeLink = (slug) => `#${encodeURIComponent(slug)}`;
+    const about = pages['about-us'];
+    document.querySelector('#home-about-copy').innerHTML = about.paragraphs.slice(0, 2)
+        .map((paragraph) => `<p>${escape(paragraph)}</p>`).join('');
+    document.querySelector('#home-about-facts').innerHTML = about.facts
+        .filter((fact) => ['Established', 'Nature of business', 'Proprietor', 'Location'].includes(fact.label))
+        .map((fact) => `<div><dt>${escape(fact.label)}</dt><dd>${escape(fact.value)}</dd></div>`).join('');
     const contact = pages['contact-us'];
     const whatsappUrl = `https://wa.me/${contact.whatsapp}`;
     const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contact.address)}`;

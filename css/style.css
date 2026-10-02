@@ -283,8 +283,31 @@ body.quote-open {
 }
 .company-facts dt { margin-bottom: 8px; color: #865500; font-weight: 700; }
 .company-facts dd { margin: 0; line-height: 1.6; overflow-wrap: anywhere; }
+.home-about {
+    padding: clamp(40px, 6vw, 72px) 24px;
+    background: #fffaf0;
+    color: #302008;
+}
+.home-about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 64px);
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.home-about h2 { margin: 12px 0 20px; font-size: clamp(28px, 4vw, 40px); }
+#home-about-copy p { line-height: 1.8; color: #625b50; overflow-wrap: anywhere; }
+.home-about .company-facts { margin: 0; }
+.home-about .page-action { text-decoration: none; }
+.home-about .page-action:hover { background: #ffca66; }
+.home-about .page-action:focus-visible { outline: 3px solid #865500; outline-offset: 4px; }
+@media (max-width: 900px) {
+    .home-about-layout { grid-template-columns: 1fr; }
+}
 @media (max-width: 600px) {
     .company-facts { grid-template-columns: 1fr; }
+    .home-about { padding-inline: 20px; }
 }
 
 .content-page a {
