@@ -6,6 +6,8 @@
     const customerName = form.elements.customerName;
     const status = document.querySelector('#quote-status');
     const openButton = document.querySelector('#open-quote');
+    const submitButton = form.querySelector('[type="submit"]');
+    let submitting = false;
 
     window.siteData.products.forEach((product) => {
         const duplicateName = window.siteData.products.filter(item => item.name === product.name).length > 1;
@@ -14,7 +16,7 @@
     });
 
     openButton.addEventListener('click', () => {
-        status.textContent = '';
+        if (!submitting) status.textContent = '';
         dialog.showModal();
         document.body.classList.add('quote-open');
         productSelect.focus();
@@ -33,8 +35,9 @@
     phone.addEventListener('input', () => phone.setCustomValidity(''));
     customerName.addEventListener('input', () => customerName.setCustomValidity(''));
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
         event.preventDefault();
+        if (submitting) return;
         customerName.setCustomValidity(customerName.value.trim() ? '' : 'Enter your name.');
         const number = phone.value.trim();
         const digits = number.replace(/\D/g, '');
@@ -44,15 +47,37 @@
 
         const product = window.siteData.products.find((item) => item.slug === productSelect.value);
         if (!product) return;
-        const sellerEmail = window.siteData.pages['contact-us'].email.trim();
-        if (!sellerEmail) {
-            status.textContent = 'Online quote requests are not available yet. Your request has not been sent.';
-            return;
+        const data = new FormData(form);
+        data.set('productName', product.name);
+        data.set('customerName', customerName.value.trim());
+        data.set('phone', number);
+        data.set('_subject', `Quote request: ${product.name}`);
+        if (product.sourceId) data.set('productReference', product.sourceId);
+        submitting = true;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+        form.setAttribute('aria-busy', 'true');
+        status.textContent = 'Sending your quote request...';
+        const controller = new AbortController();
+        const timeout = window.setTimeout(() => controller.abort(), 20000);
+        try {
+            const response = await fetch(form.action, {
+                method: form.method.toUpperCase(),
+                body: data,
+                headers: { Accept: 'application/json' },
+                signal: controller.signal
+            });
+            if (!response.ok) throw new Error('Submission failed');
+            form.reset();
+            status.textContent = 'Thank you! Your quote request has been sent. We will contact you with pricing.';
+        } catch {
+            status.textContent = 'We could not confirm your request. Please try again or contact us by phone, WhatsApp, or email.';
+        } finally {
+            window.clearTimeout(timeout);
+            submitting = false;
+            submitButton.disabled = false;
+            submitButton.textContent = 'Request Quote';
+            form.removeAttribute('aria-busy');
         }
-        const subject = `Quote request: ${product.name}`;
-        const reference = product.sourceId ? `\nProduct reference: ${product.sourceId}` : '';
-        const body = `Hello,\n\nPlease send your best price for:\nProduct: ${product.name}${reference}\nQuantity: ${form.elements.quantity.value}\nCustomer name: ${customerName.value.trim()}\nCustomer phone: ${number}\nCustomer email: ${form.elements.email.value.trim()}\n\nPlease contact me with your quote.`;
-        window.location.href = `mailto:${encodeURIComponent(sellerEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        status.textContent = 'Your email app will open with the enquiry. Send the email there to complete your request. If it does not open, please contact us by email.';
     });
 })();

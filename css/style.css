@@ -44,6 +44,8 @@
     background: #ffca66;
 }
 
+.quote-button:disabled { opacity: .65; cursor: wait; }
+
 .quote-button:focus-visible {
     outline: 3px solid #684000;
     outline-offset: 4px;
