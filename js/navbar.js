@@ -2,7 +2,7 @@
     const navbar = document.querySelector('.navbar');
     const toggle = navbar.querySelector('.nav-toggle');
     const menu = navbar.querySelector('.nav-list');
-    const mobileLayout = window.matchMedia('(max-width: 1050px)');
+    const mobileLayout = window.matchMedia('(max-width: 1200px)');
 
     function setMenu(open, restoreFocus = false) {
         navbar.classList.toggle('menu-open', open);

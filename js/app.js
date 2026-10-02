@@ -84,7 +84,7 @@
                 <div class="category-image${product.imageFit === 'contain' ? ' product-photo' : ''}"><img src="${escape(product.image)}" alt="${escape(product.alt)}"></div>
                 <div><p>${escape(product.description)}</p>
                     ${product.category ? `<dl class="product-facts"><div><dt>Category</dt><dd>${escape(product.category)}</dd></div><div><dt>Product reference</dt><dd>${escape(product.sourceId)}</dd></div><div><dt>Price</dt><dd>${escape(product.priceLabel)}</dd></div></dl>` : ''}
-                    <a class="page-action" href="#contact-us">Contact us about this product</a>
+                    <button class="quote-button quote-pop product-quote" type="button" data-quote-open data-quote-product="${escape(product.slug)}" aria-haspopup="dialog" aria-controls="quote-dialog" aria-label="Get instant quote for ${escape(product.name)}">Get Instant Quote for This Product <span aria-hidden="true">&#8594;</span></button>
                     <a class="page-action secondary" href="#products">Browse all products</a>
                 </div></div>`;
         } else if (route === 'products') {

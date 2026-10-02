@@ -6,6 +6,7 @@
     const customerName = form.elements.customerName;
     const status = document.querySelector('#quote-status');
     const openButton = document.querySelector('#open-quote');
+    let quoteTrigger = openButton;
     const submitButton = form.querySelector('[type="submit"]');
     let submitting = false;
 
@@ -15,7 +16,11 @@
         productSelect.add(new Option(label, product.slug));
     });
 
-    openButton.addEventListener('click', () => {
+    document.addEventListener('click', (event) => {
+        const button = event.target.closest('[data-quote-open]');
+        if (!button) return;
+        quoteTrigger = button;
+        if (button.dataset.quoteProduct) productSelect.value = button.dataset.quoteProduct;
         if (!submitting) status.textContent = '';
         dialog.showModal();
         document.body.classList.add('quote-open');
@@ -29,7 +34,10 @@
     });
     dialog.addEventListener('close', () => {
         document.body.classList.remove('quote-open');
-        openButton.focus({ preventScroll: true });
+        const navToggle = document.querySelector('.nav-toggle');
+        const target = quoteTrigger.getClientRects().length ? quoteTrigger :
+            (navToggle.getClientRects().length ? navToggle : document.querySelector('#open-search'));
+        target.focus({ preventScroll: true });
     });
     window.addEventListener('hashchange', () => { if (dialog.open) dialog.close(); });
     phone.addEventListener('input', () => phone.setCustomValidity(''));
