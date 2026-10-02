@@ -1,9 +1,17 @@
 .quote-section {
     padding: clamp(40px, 6vw, 72px) 24px;
-    background: #fff0d1;
-    color: #302008;
+    background-color: #171512;
+    background-image: linear-gradient(#171512b3, #171512b3), url('../Images/Background%20Image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
     text-align: center;
     border-top: 1px solid #f0d39b;
+}
+
+.quote-section .quote-button:focus-visible {
+    outline-color: #ffca66;
 }
 
 .quote-section h2 {
