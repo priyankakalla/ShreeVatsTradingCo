@@ -16,6 +16,7 @@ Make every new section and every UI change responsive for desktop, iPad/tablet, 
 - Main page: `index.html`; styles: `css/style.css`.
 - This is a single-page site. Navigation uses hash routes (for example `#industrial-valves`), managed by `js/app.js`. Do not create separate HTML files for product or navigation pages.
 - Maintain product names, descriptions, images, and About/Contact content in `js/site-data.js`. The dropdown, category cards, product detail views, and site map are generated from this shared data.
+- The catalog includes 17 imported IndiaMART listings alongside the existing products. Preserve each listing's `sourceId` and unique slug, including listings with duplicate names. Photos are stored in `Images/indiamart`; Seamless Pipes and Flange use an image-unavailable placeholder because their listings have no photos. Source descriptions and prices must not be invented.
 - Contact details have not been provided. Keep them empty until the user supplies them; do not invent them.
 - Navbar behavior: `js/navbar.js`; automatic carousel: `js/carousel.js`.
 - Product categories use circular images with names and descriptions below them.

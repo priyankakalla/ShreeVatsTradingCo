@@ -8,7 +8,9 @@
     const openButton = document.querySelector('#open-quote');
 
     window.siteData.products.forEach((product) => {
-        productSelect.add(new Option(product.name, product.slug));
+        const duplicateName = window.siteData.products.filter(item => item.name === product.name).length > 1;
+        const label = duplicateName && product.sourceId ? `${product.name} (Ref. ${product.sourceId})` : product.name;
+        productSelect.add(new Option(label, product.slug));
     });
 
     openButton.addEventListener('click', () => {
@@ -48,7 +50,8 @@
             return;
         }
         const subject = `Quote request: ${product.name}`;
-        const body = `Hello,\n\nPlease send your best price for:\nProduct: ${product.name}\nQuantity: ${form.elements.quantity.value}\nCustomer name: ${customerName.value.trim()}\nCustomer phone: ${number}\nCustomer email: ${form.elements.email.value.trim()}\n\nPlease contact me with your quote.`;
+        const reference = product.sourceId ? `\nProduct reference: ${product.sourceId}` : '';
+        const body = `Hello,\n\nPlease send your best price for:\nProduct: ${product.name}${reference}\nQuantity: ${form.elements.quantity.value}\nCustomer name: ${customerName.value.trim()}\nCustomer phone: ${number}\nCustomer email: ${form.elements.email.value.trim()}\n\nPlease contact me with your quote.`;
         window.location.href = `mailto:${encodeURIComponent(sellerEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         status.textContent = 'Your email app will open with the enquiry. Send the email there to complete your request. If it does not open, please contact us by email.';
     });
