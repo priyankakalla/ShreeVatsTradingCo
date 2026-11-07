@@ -9,9 +9,47 @@ window.siteData = {
         "steel-flanges"
     ],
     "company": "Shree Vats Trading Company",
+    "trustedCompanies": [
+        "Hind Energy",
+        "Clean Coal Enterprises",
+        "Radiant",
+        "Hind Multi"
+    ],
+    "faqs": [
+        {
+            "question": "What products does Shree Vats Trading Company offer?",
+            "answer": "Our catalog includes industrial valves, bearings, pipes, flanges, pipe fittings, filter cartridges, and other industrial components. Browse All Products to explore the range."
+        },
+        {
+            "question": "How can I request a product quote?",
+            "answer": "Use the Get Instant Quote button, select a product, and submit your quantity and contact details. Our team will use your enquiry to discuss your requirements and provide a quote."
+        },
+        {
+            "question": "What information should I include in my enquiry?",
+            "answer": "Share the product name, required quantity, size, material, and intended application. If available, include a specification or product reference when discussing your requirements with our team."
+        },
+        {
+            "question": "Are current prices and stock availability shown online?",
+            "answer": "Products marked Price on request require an enquiry for current pricing. Please confirm stock availability, specifications, and pricing with our team before placing an order."
+        },
+        {
+            "question": "How do I confirm delivery and payment terms?",
+            "answer": "Contact our team with your product requirements and delivery location to discuss applicable delivery arrangements and payment terms before ordering."
+        },
+        {
+            "question": "Where is the company based?",
+            "answer": "Shree Vats Trading Company is based in Kolkata, West Bengal, India. Visit Contact Us for contact information and product enquiries."
+        }
+    ],
     "pages": {
         "about-us": {
             "title": "About Us",
+            "banner": {
+                "image": "Images/about us banner.png",
+                "alt": "Shree Vats Trading Company — Powering Industry. Delivering Reliability. Industrial bearings, valves, filters, and pipe fittings.",
+                "width": 1672,
+                "height": 941
+            },
             "paragraphs": [
                 "Established in 2017, Shree Vats Trading Company is a Kolkata-based wholesaler and distributor of industrial products, operating as a proprietorship under Prem Kalla.",
                 "Our product range includes industrial valves, ball valves, seamless pipes, flanges, seamless bends, high-pressure elbows, pipe fittings, and return valves.",
@@ -27,6 +65,31 @@ window.siteData = {
                 { "label": "GST number", "value": "19AFJPK7016G1ZD" },
                 { "label": "GST registration year", "value": "2017" }
             ],
+            "sections": [
+                {
+                    "title": "What We Offer",
+                    "description": "Explore industrial products for piping, flow control, machinery, and filtration. Our catalog brings together valves, pipes, flanges, fittings, bearings, filter cartridges, and more.",
+                    "link": { "label": "Explore our products", "route": "products" }
+                },
+                {
+                    "title": "Our Purpose",
+                    "description": "We aim to make industrial product enquiries straightforward, helping customers share their requirements and find relevant options in our range."
+                },
+                {
+                    "title": "Our Customer Approach",
+                    "description": "Every enquiry starts with understanding your needs. Share the product name, size, material, quantity, and intended use so we can discuss availability and current pricing with you.",
+                    "link": { "label": "Discuss your requirements", "route": "contact-us" }
+                }
+            ],
+            "thanks": {
+                "eyebrow": "With gratitude",
+                "title": "Thank You for Being Part of Our Journey",
+                "paragraphs": [
+                    "To our customers, suppliers, business associates, and everyone who visits Shree Vats Trading Company: thank you for your interest, encouragement, and support.",
+                    "Whether you are exploring our products for the first time or returning with a new requirement, we appreciate the opportunity to connect with you. We look forward to building lasting business relationships, one conversation at a time."
+                ],
+                "signature": "Warm regards, the Shree Vats Trading Company team"
+            },
             "sourceUrl": "https://www.indiamart.com/shri-vats-trading-compny/aboutus.html"
         },
         "contact-us": {

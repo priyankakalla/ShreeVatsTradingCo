@@ -8,6 +8,10 @@
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     })[char]);
     const routeLink = (slug) => `#${encodeURIComponent(slug)}`;
+    document.querySelector('#home-faq-list').innerHTML = window.siteData.faqs
+        .map((faq) => `<details class="faq-item"><summary>${escape(faq.question)}</summary><p>${escape(faq.answer)}</p></details>`).join('');
+    document.querySelector('#trusted-companies-list').innerHTML = window.siteData.trustedCompanies
+        .map((name) => `<li>${escape(name)}</li>`).join('');
     const about = pages['about-us'];
     document.querySelector('#home-about-copy').innerHTML = about.paragraphs.slice(0, 2)
         .map((paragraph) => `<p>${escape(paragraph)}</p>`).join('');
@@ -77,6 +81,12 @@
         let body = '';
         home.hidden = !isHome;
         content.hidden = isHome;
+        const aboutHero = document.querySelector('#about-hero');
+        aboutHero.hidden = route !== 'about-us';
+        if (route === 'about-us' && !aboutHero.firstElementChild) {
+            const banner = about.banner;
+            aboutHero.innerHTML = `<img src="${escape(banner.image)}" alt="${escape(banner.alt)}" width="${banner.width}" height="${banner.height}" fetchpriority="high">`;
+        }
 
         if (product) {
             title = product.name;
@@ -95,6 +105,22 @@
             body = page.paragraphs.map((paragraph) => `<p>${escape(paragraph)}</p>`).join('');
             if (page.facts) {
                 body += `<h2>Company Profile</h2><dl class="company-facts">${page.facts.map((fact) => `<div><dt>${escape(fact.label)}</dt><dd>${escape(fact.value)}</dd></div>`).join('')}</dl>`;
+            }
+            if (page.sections) {
+                body += `<div class="about-sections">${page.sections.map((section) => `
+                    <section class="about-card">
+                        <h2>${escape(section.title)}</h2>
+                        <p>${escape(section.description)}</p>
+                        ${section.link ? `<a href="${routeLink(section.link.route)}">${escape(section.link.label)} <span aria-hidden="true">&#8594;</span></a>` : ''}
+                    </section>`).join('')}</div>`;
+            }
+            if (page.thanks) {
+                body += `<section class="about-thanks" aria-labelledby="about-thanks-heading">
+                    <p class="about-eyebrow">${escape(page.thanks.eyebrow)}</p>
+                    <h2 id="about-thanks-heading">${escape(page.thanks.title)}</h2>
+                    ${page.thanks.paragraphs.map((paragraph) => `<p>${escape(paragraph)}</p>`).join('')}
+                    <p class="about-signature">${escape(page.thanks.signature)}</p>
+                </section>`;
             }
             if (route === 'contact-us') {
                 if (page.email) body += `<p><a href="mailto:${escape(page.email)}">${escape(page.email)}</a></p>`;
